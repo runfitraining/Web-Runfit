@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>runFIT Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #F47F20;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --card: #1A1A1A;
+    --white: #FFFFFF;
+    --gray: #888888;
+    --light-gray: #222222;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    max-width: 430px;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+
+  .wip-banner {
+    background: var(--orange);
+    color: var(--black);
+    text-align: center;
+    padding: 10px 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  .wip-dot {
+    width: 8px; height: 8px;
+    background: var(--black);
+    border-radius: 50%;
+    animation: blink 1.2s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  nav {
+    background: var(--dark);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--orange);
+  }
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+  .logo span { color: var(--orange); }
+  .menu-btn {
+    width: 36px; height: 36px;
+    border: 2px solid var(--orange);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    background: transparent;
+    padding: 8px;
+  }
+  .menu-btn span {
+    display: block;
+    width: 18px; height: 2px;
+    background: var(--orange);
+    border-radius: 2px;
+    transition: .3s;
+  }
+
+  .hero {
+    min-height: 88vh;
+    background: var(--black);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 0 40px;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 80% 20%, rgba(244,127,32,0.18) 0%, transparent 60%),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 40px,
+        rgba(244,127,32,0.04) 40px,
+        rgba(244,127,32,0.04) 41px
+      );
+  }
+  .hero-number {
+    position: absolute;
+    top: -20px; right: -10px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 220px;
+    color: rgba(244,127,32,0.06);
+    line-height: 1;
+    user-select: none;
+  }
+  .hero-content {
+    position: relative;
+    padding: 0 24px;
+    animation: fadeUp 0.8s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(30px); }
+    to { opacity:1; transform: translateY(0); }
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--orange);
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 3px;
+    padding: 5px 12px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    line-height: 0.9;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+  .hero h1 em {
+    color: var(--orange);
+    font-style: normal;
+    display: block;
+  }
+  .hero p {
+    font-size: 15px;
+    color: #AAAAAA;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 300px;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 12px;
+  }
+  .btn-primary {
+    flex: 1;
+    background: var(--orange);
+    color: var(--black);
+    border: none;
+    padding: 16px 24px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: .2s;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+  }
+  .btn-primary:active { transform: scale(0.97); }
+  .btn-outline {
+    flex: 1;
+    background: transparent;
+    color: var(--white);
+    border: 2px solid #333;
+    padding: 16px 24px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+  }
+
+  .stats {
+    background: var(--orange);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+    padding: 24px 0;
+  }
+  .stat-item { padding: 8px; border-right: 1px solid rgba(0,0,0,0.15); }
+  .stat-item:last-child { border: none; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--black);
+    display: block;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: rgba(0,0,0,0.6);
+  }
+
+  section { padding: 56px 24px; }
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+  }
+
+  .coaches { background: var(--dark); }
+  .coach-card {
+    background: var(--card);
+    margin-bottom: 16px;
+    border-left: 4px solid var(--orange);
+    padding: 24px;
+    animation: fadeUp .6s ease both;
+  }
+  .coach-card:nth-child(1) { animation-delay: .1s; }
+  .coach-card:nth-child(2) { animation-delay: .2s; }
+  .coach-card:nth-child(3) { animation-delay: .3s; }
+  .coach-card:nth-child(4) { animation-delay: .4s; }
+  .coach-icon {
+    width: 56px; height: 56px;
+    background: var(--orange);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  .coach-role {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--orange);
+    margin-bottom: 6px;
+  }
+  .coach-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 26px;
+    font-weight: 900;
+    margin-bottom: 10px;
+  }
+  .coach-desc {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.6;
+  }
+
+  .programs-grid { display: flex; flex-direction: column; gap: 12px; }
+  .program-card {
+    background: var(--card);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid var(--light-gray);
+    transition: border-color .2s;
+    cursor: pointer;
+  }
+  .program-card:active { border-color: var(--orange); }
+  .program-icon-box {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, var(--orange), #c96010);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .program-info h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .program-info p { font-size: 13px; color: #777; }
+  .program-arrow { margin-left: auto; color: var(--orange); font-size: 20px; }
+
+  .schedule { background: var(--dark); }
+  .schedule-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .schedule-tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    background: var(--card);
+    border: 1px solid var(--light-gray);
+    color: #888;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+    border-radius: 4px;
+  }
+  .tab.active {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: var(--black);
+  }
+  .schedule-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--light-gray);
+  }
+  .time-badge {
+    background: var(--orange);
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 6px 10px;
+    text-align: center;
+    min-width: 68px;
+    flex-shrink: 0;
+  }
+  .schedule-info h4 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+  .schedule-info p { font-size: 12px; color: #666; }
+
+  .location-block {
+    background: var(--card);
+    border-left: 4px solid var(--orange);
+    padding: 18px 20px;
+    margin-top: 20px;
+    border-radius: 0 8px 8px 0;
+  }
+  .location-block h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--orange);
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+  .location-block p { font-size: 13px; color: #aaa; margin-bottom: 10px; }
+  .map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--orange);
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding: 8px 14px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: opacity .2s;
+  }
+  .map-link:active { opacity: 0.8; }
+
+  .supplements { background: var(--black); }
+  .supp-grid { display: flex; flex-direction: column; gap: 14px; }
+  .supp-card {
+    background: var(--card);
+    border: 1px solid var(--light-gray);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .supp-header {
+    background: linear-gradient(135deg, var(--orange), #c96010);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .supp-header .supp-icon { font-size: 22px; }
+  .supp-header h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--black);
+    line-height: 1.1;
+  }
+  .supp-header small {
+    font-size: 11px;
+    color: rgba(0,0,0,0.65);
+    font-weight: 600;
+    letter-spacing: 1px;
+    display: block;
+  }
+  .supp-body { padding: 16px 18px; }
+  .supp-body .supp-use {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+  .supp-body ul {
+    list-style: none;
+    padding: 0;
+  }
+  .supp-body ul li {
+    font-size: 13px;
+    color: #bbb;
+    padding: 3px 0;
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .supp-body ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+    font-weight: 700;
+  }
+  .supp-tag {
+    display: inline-block;
+    background: rgba(244,127,32,0.15);
+    color: var(--orange);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-top: 10px;
+  }
+  .cibeles-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(244,127,32,0.08);
+    border: 1px solid rgba(244,127,32,0.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+  }
+  .cibeles-badge span { font-size: 18px; }
+  .cibeles-badge p {
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.4;
+  }
+  .cibeles-badge strong { color: var(--orange); }
+
+  .join-section {
+    background: var(--orange);
+    padding: 48px 24px;
+    text-align: center;
+  }
+  .join-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: var(--black);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .join-section p {
+    font-size: 15px;
+    color: rgba(0,0,0,0.65);
+    margin-bottom: 28px;
+  }
+  .btn-dark {
+    display: block;
+    background: var(--black);
+    color: var(--white);
+    padding: 18px 32px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  footer {
+    background: #050505;
+    padding: 32px 24px;
+    text-align: center;
+    border-top: 2px solid var(--orange);
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .footer-logo span { color: var(--orange); }
+  footer p { font-size: 12px; color: #444; }
+
+  .mobile-nav {
+    position: fixed;
+    inset: 0;
+    background: var(--black);
+    z-index: 999;
+    padding: 24px;
+    transform: translateX(100%);
+    transition: transform .3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 2px;
+    padding: 12px 0;
+    border-bottom: 1px solid #1a1a1a;
+    transition: color .2s;
+  }
+  .mobile-nav a:hover { color: var(--orange); }
+  .nav-close {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: none; border: none;
+    color: var(--white);
+    font-size: 32px;
+    cursor: pointer;
+  }
+
+  /* NAV LOGO */
+  .logo-nav-wrap { display:flex; align-items:center; }
+  .nav-logo-img { height: 48px; width: auto; object-fit: contain; }
+
+  /* ATLETISMO SECTION */
+  .atletismo-section { background: var(--dark); }
+  .trophy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .trophy-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 18px 14px;
+    text-align: center;
+    border-top: 3px solid var(--orange);
+    transition: transform .3s ease, box-shadow .3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .trophy-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity .5s ease, transform .5s ease, box-shadow .3s ease;
+  }
+  .trophy-card:active { transform: scale(0.97); box-shadow: 0 4px 20px rgba(244,127,32,0.2); }
+  .trophy-year {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--gray);
+    margin-bottom: 6px;
+  }
+  .trophy-pos {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    line-height: 1;
+    margin-bottom: 6px;
+    color: var(--white);
+  }
+  .trophy-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--orange);
+    line-height: 1.4;
+  }
+
+  /* KIDS SECTION */
+  .kids-section { background: var(--black); }
+  .kids-logo-wrap {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .kids-logo-img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 20px;
+    animation: floatImg 3s ease-in-out infinite;
+  }
+  .logo-fallback {
+    width: 200px; height: 200px;
+    background: var(--card);
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+  }
+  @keyframes floatImg {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* PULSE ON STATS */
+  @keyframes countUp {
+    from { opacity: 0; transform: scale(0.7); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .stat-num { animation: countUp .6s ease both; }
+  .stat-item:nth-child(1) .stat-num { animation-delay: .1s; }
+  .stat-item:nth-child(2) .stat-num { animation-delay: .25s; }
+  .stat-item:nth-child(3) .stat-num { animation-delay: .4s; }
+
+  /* ORANGE PULSE ON JOIN BUTTON */
+  .btn-dark:hover { background: #111; }
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(244,127,32,0.5); }
+    70% { box-shadow: 0 0 0 14px rgba(244,127,32,0); }
+    100% { box-shadow: 0 0 0 0 rgba(244,127,32,0); }
+  }
+  .btn-primary { animation: pulse-ring 2.5s ease infinite; }
+</style>
+</head>
+<body>
+
+<div class="wip-banner">
+  <div class="wip-dot"></div>
+  🚧 PAGINA EN CONSTRUCCIÓN — PRÓXIMAMENTE 🚧
+  <div class="wip-dot"></div>
+</div>
+
+<nav>
+  <div class="logo-nav-wrap">
+    <img src="LOGO RUNFIT.png" alt="runFIT Training" class="nav-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <div class="logo" style="display:none">run<span>FIT</span><br><small style="font-size:12px;letter-spacing:4px;color:#666;font-family:'Barlow',sans-serif;font-weight:600;">TRAINING</small></div>
+  </div>
+  <button class="menu-btn" onclick="document.querySelector('.mobile-nav').classList.add('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-nav">
+  <button class="nav-close" onclick="document.querySelector('.mobile-nav').classList.remove('open')">✕</button>
+  <a href="#inicio" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Inicio</a>
+  <a href="#entrenadores" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Entrenadores</a>
+  <a href="#programas" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Programas</a>
+  <a href="#atletismo" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Atletismo</a>
+  <a href="#kids" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Kids</a>
+  <a href="#horarios" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Horarios</a>
+  <a href="#suplementos" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Suplementos</a>
+  <a href="#unirse" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Unirse</a>
+</div>
+
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-number">RF</div>
+  <div class="hero-content">
+    <div class="hero-tag">🏃 CLUB DE RUNNING</div>
+    <h1>CONTIGO<em>EN CADA<br>PASO</em></h1>
+    <p>Entrenamiento apasionado para corredores, adultos y niños. Tu mejor versión empieza acá.</p>
+    <div class="hero-cta">
+      <a href="#unirse" class="btn-primary">ÚNETE AHORA</a>
+      <a href="#programas" class="btn-outline">PROGRAMAS</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat-item">
+    <span class="stat-num">4</span>
+    <span class="stat-label">COACHES</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">+50</span>
+    <span class="stat-label">ATLETAS</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">5★</span>
+    <span class="stat-label">VALORACIÓN</span>
+  </div>
+</div>
+
+<section class="coaches" id="entrenadores">
+  <p class="section-tag">NUESTRO EQUIPO</p>
+  <h2 class="section-title">LOS<br>ENTRENADORES</h2>
+
+  <div class="coach-card">
+    <div class="coach-icon">🏆</div>
+    <div class="coach-role">COORDINADOR GENERAL</div>
+    <div class="coach-name">Daniel Sarmiento</div>
+    <p class="coach-desc">Responsable de la planificación deportiva, coordinación de los equipos de entrenamiento y desarrollo de los programas de running y preparación física. Supervisa el trabajo integral de Runfit y acompaña el crecimiento de cada atleta.</p>
+  </div>
+
+  <div class="coach-card">
+    <div class="coach-icon">🌊</div>
+    <div class="coach-role">ENTRENADOR — RUNFIT DE LA COSTA</div>
+    <div class="coach-name">Washington Pérez</div>
+    <p class="coach-desc">Encargado de la conducción y seguimiento de los grupos de entrenamiento de la Costa. Acompaña a los corredores en su proceso de mejora, promoviendo el desarrollo técnico, físico y deportivo.</p>
+  </div>
+
+  <div class="coach-card">
+    <div class="coach-icon">💪</div>
+    <div class="coach-role">ENTRENADOR DE FUERZA Y PREPARACIÓN FÍSICA</div>
+    <div class="coach-name">Pablo Sosa</div>
+    <p class="coach-desc">Responsable del área de fuerza de Runfit. Diseña y supervisa los programas de entrenamiento complementarios al running, orientados a mejorar el rendimiento, la prevención de lesiones y el desarrollo físico de los atletas.</p>
+  </div>
+
+  <div class="coach-card">
+    <div class="coach-icon">⭐</div>
+    <div class="coach-role">ENTRENADOR — RUNFIT KIDS</div>
+    <div class="coach-name">Simón Texeira</div>
+    <p class="coach-desc">Encargado de la formación deportiva de niños y niñas dentro de Runfit Kids. Promueve el aprendizaje a través del juego, el desarrollo de habilidades motrices y la incorporación de valores deportivos en un entorno dinámico y divertido.</p>
+  </div>
+</section>
+
+<section id="programas">
+  <p class="section-tag">LO QUE OFRECEMOS</p>
+  <h2 class="section-title">PROGRAMAS</h2>
+  <div class="programs-grid">
+    <div class="program-card">
+      <div class="program-icon-box">🏃</div>
+      <div class="program-info">
+        <h3>Running</h3>
+        <p>Para corredores de todos los niveles</p>
+      </div>
+      <span class="program-arrow">›</span>
+    </div>
+    <div class="program-card">
+      <div class="program-icon-box">🧘</div>
+      <div class="program-info">
+        <h3>Fuerza</h3>
+        <p>Potencia y prevención de lesiones</p>
+      </div>
+      <span class="program-arrow">›</span>
+    </div>
+    <div class="program-card">
+      <div class="program-icon-box">🏅</div>
+      <div class="program-info">
+        <h3>Atletismo</h3>
+        <p>Competición y alto rendimiento</p>
+      </div>
+      <span class="program-arrow">›</span>
+    </div>
+    <div class="program-card">
+      <div class="program-icon-box">🌟</div>
+      <div class="program-info">
+        <h3>runFIT Kids</h3>
+        <p>Desde 6 años. ¡A moverse!</p>
+      </div>
+      <span class="program-arrow">›</span>
+    </div>
+  </div>
+</section>
+
+<section class="atletismo-section" id="atletismo">
+  <p class="section-tag">COMPETICIÓN DE ALTO NIVEL</p>
+  <h2 class="section-title">RUNFIT<br><em style="color:var(--orange);font-style:normal;">ATLETISMO</em></h2>
+
+  <p style="color:#aaa;font-size:15px;line-height:1.7;margin-bottom:32px;">
+    Nuestro equipo de atletismo compite a nivel nacional e internacional, representando a Runfit con orgullo y dejando huella en cada competencia.
+  </p>
+
+  <div class="trophy-grid">
+    <div class="trophy-card gold">
+      <div class="trophy-year">2021</div>
+      <div class="trophy-pos">🥈 2°</div>
+      <div class="trophy-title">Vicecampeón Nacional Master</div>
+    </div>
+    <div class="trophy-card bronze">
+      <div class="trophy-year">2021</div>
+      <div class="trophy-pos">🥉 3°</div>
+      <div class="trophy-title">Torneo Internacional López Testa</div>
+    </div>
+    <div class="trophy-card bronze">
+      <div class="trophy-year">2022</div>
+      <div class="trophy-pos">🥉 3°</div>
+      <div class="trophy-title">Nacional Master</div>
+    </div>
+    <div class="trophy-card bronze">
+      <div class="trophy-year">2023</div>
+      <div class="trophy-pos">🥉 3°</div>
+      <div class="trophy-title">Nacional Master</div>
+    </div>
+    <div class="trophy-card bronze">
+      <div class="trophy-year">2024</div>
+      <div class="trophy-pos">🥉 3°</div>
+      <div class="trophy-title">Nacional Master</div>
+    </div>
+    <div class="trophy-card bronze">
+      <div class="trophy-year">2025</div>
+      <div class="trophy-pos">🥉 3°</div>
+      <div class="trophy-title">Nacional Master</div>
+    </div>
+  </div>
+</section>
+
+<section class="kids-section" id="kids">
+  <p class="section-tag">PROGRAMA INFANTIL</p>
+  <h2 class="section-title">RUNFIT<br><em style="color:var(--orange);font-style:normal;">KIDS</em></h2>
+  <div class="kids-logo-wrap">
+    <img src="RUNFIT KIDS.jpeg" alt="runFIT Kids" class="kids-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="logo-fallback" style="display:none">
+      <span>🧒 runFIT <span style="color:var(--orange)">KIDS</span></span>
+    </div>
+  </div>
+  <p style="color:#aaa;font-size:15px;line-height:1.7;margin-top:20px;margin-bottom:0;">
+    Un espacio pensado para que los más chicos descubran el movimiento, desarrollen habilidades motrices y aprendan valores deportivos mientras se divierten. Coordinado por Simón Texeira, el programa combina juego, técnica y alegría en cada sesión.
+  </p>
+</section>
+
+<section class="schedule" id="horarios">
+  <p class="section-tag">PLANIFICÁ TU SEMANA</p>
+  <h2 class="section-title">HORARIOS</h2>
+
+  <div class="location-block">
+    <h4>📍 PISTA PRADO — LUNES Y MIÉRCOLES</h4>
+    <p>A partir de las 19:00 hs</p>
+    <a href="https://maps.app.goo.gl/LPGKkqWKzje76oCp6" target="_blank" class="map-link">
+      🗺️ VER EN GOOGLE MAPS
+    </a>
+  </div>
+
+  <div class="location-block" style="margin-top:14px;">
+    <h4>📍 PISTA PARQUE BATTLE — MARTES Y JUEVES</h4>
+    <p>A partir de las 19:15 hs</p>
+    <a href="https://maps.app.goo.gl/DArXoRKR8TwQcrjR6" target="_blank" class="map-link">
+      🗺️ VER EN GOOGLE MAPS
+    </a>
+  </div>
+
+  <div class="location-block" style="margin-top:14px;">
+    <h4>📍 CIUDAD DE LA COSTA — LUNES Y MIÉRCOLES</h4>
+    <p>A partir de las 19:00 hs</p>
+    <p style="color:#666;font-size:12px;margin-top:4px;margin-bottom:0;">📌 Ubicación próximamente</p>
+  </div>
+</section>
+
+<section class="supplements" id="suplementos">
+  <p class="section-tag">NUTRICIÓN DEPORTIVA</p>
+  <h2 class="section-title">SUPLEMENTOS</h2>
+
+  <div class="cibeles-badge">
+    <span>🏅</span>
+    <p>Productos seleccionados de <strong>Cibeles Nutrition</strong> — pensados para el corredor exigente.</p>
+  </div>
+
+  <div class="supp-grid">
+
+    <div class="supp-card">
+      <div class="supp-header">
+        <div class="supp-icon">⚡</div>
+        <div>
+          <h3>Power Drink</h3>
+          <small>BEBIDA DEPORTIVA CON CARBOHIDRATOS + ELECTROLITOS</small>
+        </div>
+      </div>
+      <div class="supp-body">
+        <div class="supp-use">¿PARA QUÉ SIRVE?</div>
+        <ul>
+          <li>Hidratación y energía durante el ejercicio</li>
+          <li>Repone sales (sodio, potasio) que perdés con el sudor</li>
+          <li>Mantiene el rendimiento en entrenamientos largos</li>
+        </ul>
+        <span class="supp-tag">Ideal para fondos y tiradas largas</span>
+      </div>
+    </div>
+
+    <div class="supp-card">
+      <div class="supp-header">
+        <div class="supp-icon">🌾</div>
+        <div>
+          <h3>Maltodextrina</h3>
+          <small>CARBOHIDRATO COMPLEJO DE RÁPIDA ABSORCIÓN</small>
+        </div>
+      </div>
+      <div class="supp-body">
+        <div class="supp-use">¿PARA QUÉ SIRVE?</div>
+        <ul>
+          <li>Fuente de energía rápida</li>
+          <li>Carga glucógeno antes o después del entrenamiento</li>
+          <li>Evita quedarse sin energía</li>
+        </ul>
+        <div class="supp-use" style="margin-top:10px;">USO TÍPICO</div>
+        <ul>
+          <li>Antes (carga de energía)</li>
+          <li>Durante (en entrenamientos largos)</li>
+          <li>Después (recuperación)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="supp-card">
+      <div class="supp-header">
+        <div class="supp-icon">🔥</div>
+        <div>
+          <h3>Beta Alanina</h3>
+          <small>RESISTENCIA EN ALTA INTENSIDAD</small>
+        </div>
+      </div>
+      <div class="supp-body">
+        <div class="supp-use">¿PARA QUÉ SIRVE?</div>
+        <ul>
+          <li>Retrasa la fatiga muscular</li>
+          <li>Mejora la resistencia en alta intensidad</li>
+          <li>Permite sostener ritmos fuertes más tiempo</li>
+        </ul>
+        <div class="supp-use" style="margin-top:10px;">IDEAL PARA</div>
+        <ul>
+          <li>Series en pista</li>
+          <li>400 / 800 / 1500 metros</li>
+          <li>Cambios de ritmo y trabajos duros</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="supp-card">
+      <div class="supp-header">
+        <div class="supp-icon">💪</div>
+        <div>
+          <h3>Creatina</h3>
+          <small>FUERZA Y POTENCIA</small>
+        </div>
+      </div>
+      <div class="supp-body">
+        <div class="supp-use">¿PARA QUÉ SIRVE?</div>
+        <ul>
+          <li>Aumenta fuerza y potencia</li>
+          <li>Mejora la recuperación</li>
+          <li>Retrasa la fatiga</li>
+          <li>Permite entrenar más intenso</li>
+        </ul>
+        <span class="supp-tag">Clave en el trabajo de fuerza</span>
+      </div>
+    </div>
+
+    <div class="supp-card">
+      <div class="supp-header">
+        <div class="supp-icon">🍬</div>
+        <div>
+          <h3>Geles Energéticos</h3>
+          <small>CARBOHIDRATOS RÁPIDOS + ELECTROLITOS</small>
+        </div>
+      </div>
+      <div class="supp-body">
+        <div class="supp-use">¿PARA QUÉ SIRVEN?</div>
+        <ul>
+          <li>Energía inmediata durante la actividad</li>
+          <li>Mantienen el rendimiento en esfuerzos largos</li>
+          <li>Evitan el bajón de energía</li>
+        </ul>
+        <div class="supp-use" style="margin-top:10px;">USO TÍPICO</div>
+        <ul>
+          <li>1 gel cada 45 min en esfuerzos largos</li>
+          <li>Maltodextrina + otros azúcares de rápida absorción</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="join-section" id="unirse">
+  <h2>¿LISTO PARA CORRER?</h2>
+  <p>Unite al club y empezá a entrenar con los mejores esta semana.</p>
+  <button class="btn-dark">QUIERO UNIRME →</button>
+</div>
+
+<footer>
+  <div class="footer-logo">run<span>FIT</span> TRAINING</div>
+  <p>© 2025 runFIT Training · Todos los derechos reservados</p>
+  <p style="margin-top:8px;font-size:11px;color:#333;">Sitio web en desarrollo · Próximamente versión completa</p>
+</footer>
+
+<script>
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.coach-card, .program-card, .trophy-card, .location-block, .supp-card, .section-title, .section-tag').forEach(el => {
+    el.classList.add('reveal');
+    revealObserver.observe(el);
+  });
+
+  // Trophy cards stagger
+  document.querySelectorAll('.trophy-card').forEach((card, i) => {
+    card.style.transitionDelay = (i * 0.1) + 's';
+  });
+</script>
+</body>
+</html>
