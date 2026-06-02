@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>runFIT Training – Modelo 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #F47F20;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --card: #1A1A1A;
+    --white: #FFFFFF;
+    --gray: #888888;
+    --light-gray: #222222;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    max-width: 430px;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+
+  /* WIP Banner */
+  .wip-banner {
+    background: var(--orange);
+    color: var(--black);
+    text-align: center;
+    padding: 10px 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  .wip-dot {
+    width: 8px; height: 8px;
+    background: var(--black);
+    border-radius: 50%;
+    animation: blink 1.2s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  /* NAV */
+  nav {
+    background: var(--dark);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--orange);
+  }
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+  .logo span { color: var(--orange); }
+  .menu-btn {
+    width: 36px; height: 36px;
+    border: 2px solid var(--orange);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    background: transparent;
+    padding: 8px;
+  }
+  .menu-btn span {
+    display: block;
+    width: 18px; height: 2px;
+    background: var(--orange);
+    border-radius: 2px;
+    transition: .3s;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 88vh;
+    background: var(--black);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 0 40px;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 80% 20%, rgba(244,127,32,0.18) 0%, transparent 60%),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 40px,
+        rgba(244,127,32,0.04) 40px,
+        rgba(244,127,32,0.04) 41px
+      );
+  }
+  .hero-number {
+    position: absolute;
+    top: -20px; right: -10px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 220px;
+    color: rgba(244,127,32,0.06);
+    line-height: 1;
+    user-select: none;
+  }
+  .hero-content {
+    position: relative;
+    padding: 0 24px;
+    animation: fadeUp 0.8s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(30px); }
+    to { opacity:1; transform: translateY(0); }
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--orange);
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 3px;
+    padding: 5px 12px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    line-height: 0.9;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+  .hero h1 em {
+    color: var(--orange);
+    font-style: normal;
+    display: block;
+  }
+  .hero p {
+    font-size: 15px;
+    color: #AAAAAA;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 300px;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 12px;
+  }
+  .btn-primary {
+    flex: 1;
+    background: var(--orange);
+    color: var(--black);
+    border: none;
+    padding: 16px 24px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: .2s;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+  }
+  .btn-primary:active { transform: scale(0.97); }
+  .btn-outline {
+    flex: 1;
+    background: transparent;
+    color: var(--white);
+    border: 2px solid #333;
+    padding: 16px 24px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+  }
+
+  /* STATS */
+  .stats {
+    background: var(--orange);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+    padding: 24px 0;
+  }
+  .stat-item { padding: 8px; border-right: 1px solid rgba(0,0,0,0.15); }
+  .stat-item:last-child { border: none; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--black);
+    display: block;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: rgba(0,0,0,0.6);
+  }
+
+  /* SECTION */
+  section { padding: 56px 24px; }
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+  }
+
+  /* COACHES */
+  .coaches { background: var(--dark); }
+  .coach-card {
+    background: var(--card);
+    margin-bottom: 16px;
+    border-left: 4px solid var(--orange);
+    padding: 24px;
+    animation: fadeUp .6s ease both;
+  }
+  .coach-card:nth-child(1) { animation-delay: .1s; }
+  .coach-card:nth-child(2) { animation-delay: .2s; }
+  .coach-card:nth-child(3) { animation-delay: .3s; }
+  .coach-icon {
+    width: 56px; height: 56px;
+    background: var(--orange);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  .coach-role {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--orange);
+    margin-bottom: 6px;
+  }
+  .coach-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 26px;
+    font-weight: 900;
+    margin-bottom: 10px;
+  }
+  .coach-desc {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.6;
+  }
+
+  /* PROGRAMS */
+  .programs-grid { display: flex; flex-direction: column; gap: 12px; }
+  .program-card {
+    background: var(--card);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid var(--light-gray);
+    transition: border-color .2s;
+    cursor: pointer;
+  }
+  .program-card:active { border-color: var(--orange); }
+  .program-icon-box {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, var(--orange), #c96010);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .program-info h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .program-info p { font-size: 13px; color: #777; }
+  .program-arrow { margin-left: auto; color: var(--orange); font-size: 20px; }
+
+  /* SCHEDULE */
+  .schedule { background: var(--dark); }
+  .schedule-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .schedule-tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    background: var(--card);
+    border: 1px solid var(--light-gray);
+    color: #888;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+    border-radius: 4px;
+  }
+  .tab.active {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: var(--black);
+  }
+  .schedule-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--light-gray);
+  }
+  .time-badge {
+    background: var(--orange);
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 6px 10px;
+    text-align: center;
+    min-width: 68px;
+    flex-shrink: 0;
+  }
+  .schedule-info h4 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+  .schedule-info p { font-size: 12px; color: #666; }
+
+  /* JOIN */
+  .join-section {
+    background: var(--orange);
+    padding: 48px 24px;
+    text-align: center;
+  }
+  .join-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: var(--black);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .join-section p {
+    font-size: 15px;
+    color: rgba(0,0,0,0.65);
+    margin-bottom: 28px;
+  }
+  .btn-dark {
+    display: block;
+    background: var(--black);
+    color: var(--white);
+    padding: 18px 32px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #050505;
+    padding: 32px 24px;
+    text-align: center;
+    border-top: 2px solid var(--orange);
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .footer-logo span { color: var(--orange); }
+  footer p { font-size: 12px; color: #444; }
+
+  /* MOBILE NAV OVERLAY */
+  .mobile-nav {
+    position: fixed;
+    inset: 0;
+    background: var(--black);
+    z-index: 999;
+    padding: 24px;
+    transform: translateX(100%);
+    transition: transform .3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 2px;
+    padding: 12px 0;
+    border-bottom: 1px solid #1a1a1a;
+    transition: color .2s;
+  }
+  .mobile-nav a:hover { color: var(--orange); }
+  .nav-close {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: none; border: none;
+    color: var(--white);
+    font-size: 32px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<!-- WIP BANNER -->
+<div class="wip-banner">
+  <div class="wip-dot"></div>
+  🚧 PAGINA EN CONSTRUCCIÓN — PRÓXIMAMENTE 🚧
+  <div class="wip-dot"></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">run<span>FIT</span><br><small style="font-size:12px;letter-spacing:4px;color:#666;font-family:'Barlow',sans-serif;font-weight:600;">TRAINING</small></div>
+  <button class="menu-btn" onclick="document.querySelector('.mobile-nav').classList.add('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav">
+  <button class="nav-close" onclick="document.querySelector('.mobile-nav').classList.remove('open')">✕</button>
+  <a href="#inicio">Inicio</a>
+  <a href="#entrenadores">Entrenadores</a>
+  <a href="#programas">Programas</a>
+  <a href="#horarios">Horarios</a>
+  <a href="#unirse">Unirse</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-number">RF</div>
+  <div class="hero-content">
+    <div class="hero-tag">🏃 CLUB DE CORREDORES</div>
+    <h1>CONTIGO<em>EN CADA<br>PASO</em></h1>
+    <p>Entrenamiento profesional para atletas, adultos y niños. Tu mejor versión empieza acá.</p>
+    <div class="hero-cta">
+      <a href="#unirse" class="btn-primary">ÚNETE AHORA</a>
+      <a href="#programas" class="btn-outline">PROGRAMAS</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item">
+    <span class="stat-num">3</span>
+    <span class="stat-label">COACHES</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">+50</span>
+    <span class="stat-label">ATLETAS</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">5★</span>
+    <span class="stat-label">VALORACIÓN</span>
+  </div>
+</div>
+
+<!-- COACHES -->
+<section class="coaches" id="entrenadores">
+  <p class="section-tag">NUESTRO EQUIPO</p>
+  <h2 class="section-title">LOS<br>ENTRENADORES</h2>
+
+  <div class="coach-card">
+    <div class="coach-icon">🏆</div>
+    <div class="coach-role">RENDIMIENTO ATLÉTICO</div>
+    <div class="coach-name">Prof. [Nombre]</div>
+    <p class="coach-desc">Especializado en atletas de competencia. Planes de entrenamiento personalizados para mejorar tiempos, técnica de carrera y preparación para carreras.</p>
+  </div>
+
+  <div class="coach-card">
+    <div class="coach-icon">💪</div>
+    <div class="coach-role">FORTALECIMIENTO & RECUPERACIÓN</div>
+    <div class="coach-name">Prof. [Nombre]</div>
+    <p class="coach-desc">Trabaja en la fuerza muscular, prevención de lesiones y recuperación activa. El complemento ideal para que corras más y mejor.</p>
+  </div>
+
+  <div class="coach-card">
+    <div class="coach-icon">⭐</div>
+    <div class="coach-role">PROGRAMA INFANTIL</div>
+    <div class="coach-name">Prof. [Nombre]</div>
+    <p class="coach-desc">Programa especialmente diseñado para niños. Desarrollo físico, coordinación y amor por el deporte desde la infancia.</p>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="programas">
+  <p class="section-tag">LO QUE OFRECEMOS</p>
+  <h2 class="section-title">PROGRAMAS</h2>
+  <div class="programs-grid">
+    <div class="program-card">
+      <div class="program-icon-box">🏃</div>
+      <div class="program-info">
+        <h3>Running Atlético</h3>
+        <p>Para corredores de competencia</p>
+      </div>
+      <span class="program-arrow">›</span>
+    </div>
+    <div class="program-card">
+      <div class="program-icon-box">🧘</div>
+      <div class="program-info">
+        <h3>Fortalecimiento</h3>
+        <p>Fuerza y prevención de lesiones</p>
+      </div>
+      <span class="program-arrow">›</span>
+    </div>
+    <div class="program-card">
+      <div class="program-icon-box">♻️</div>
+      <div class="program-info">
+        <h3>Recuperación</h3>
+        <p>Vuelve más fuerte que antes</p>
+      </div>
+      <span class="program-arrow">›</span>
+    </div>
+    <div class="program-card">
+      <div class="program-icon-box">🌟</div>
+      <div class="program-info">
+        <h3>Niños & Jóvenes</h3>
+        <p>Desde 5 años. ¡A moverse!</p>
+      </div>
+      <span class="program-arrow">›</span>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="schedule" id="horarios">
+  <p class="section-tag">PLANIFICÁ TU SEMANA</p>
+  <h2 class="section-title">HORARIOS</h2>
+  <div class="schedule-tabs">
+    <button class="tab active">Lunes</button>
+    <button class="tab">Martes</button>
+    <button class="tab">Miércoles</button>
+    <button class="tab">Jueves</button>
+    <button class="tab">Viernes</button>
+    <button class="tab">Sábado</button>
+  </div>
+  <div class="schedule-item">
+    <div class="time-badge">06:00</div>
+    <div class="schedule-info">
+      <h4>Running Atlético</h4>
+      <p>Prof. [Nombre] · Al aire libre</p>
+    </div>
+  </div>
+  <div class="schedule-item">
+    <div class="time-badge">08:00</div>
+    <div class="schedule-info">
+      <h4>Fortalecimiento</h4>
+      <p>Prof. [Nombre] · Gimnasio</p>
+    </div>
+  </div>
+  <div class="schedule-item">
+    <div class="time-badge">17:00</div>
+    <div class="schedule-info">
+      <h4>Niños & Jóvenes</h4>
+      <p>Prof. [Nombre] · Cancha principal</p>
+    </div>
+  </div>
+  <div class="schedule-item">
+    <div class="time-badge">19:00</div>
+    <div class="schedule-info">
+      <h4>Recuperación</h4>
+      <p>Prof. [Nombre] · Sala flex</p>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<div class="join-section" id="unirse">
+  <h2>¿LISTO PARA CORRER?</h2>
+  <p>Unite al club y empezá a entrenar con los mejores esta semana.</p>
+  <button class="btn-dark">QUIERO UNIRME →</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">run<span>FIT</span> TRAINING</div>
+  <p>© 2025 runFIT Training · Todos los derechos reservados</p>
+  <p style="margin-top:8px;font-size:11px;color:#333;">Sitio web en desarrollo · Próximamente versión completa</p>
+</footer>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
