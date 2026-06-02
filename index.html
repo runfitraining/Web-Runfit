@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>runFIT Training – Modelo 1</title>
+<title>runFIT Training</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -26,7 +26,6 @@
     overflow-x: hidden;
   }
 
- 
   .wip-banner {
     background: var(--orange);
     color: var(--black);
@@ -52,7 +51,6 @@
   }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
-  /* NAV */
   nav {
     background: var(--dark);
     padding: 16px 20px;
@@ -89,7 +87,6 @@
     transition: .3s;
   }
 
-  /* HERO */
   .hero {
     min-height: 88vh;
     background: var(--black);
@@ -198,7 +195,6 @@
     display: block;
   }
 
-  /* STATS */
   .stats {
     background: var(--orange);
     display: grid;
@@ -222,7 +218,6 @@
     color: rgba(0,0,0,0.6);
   }
 
-  /* SECTION */
   section { padding: 56px 24px; }
   .section-tag {
     font-family: 'Barlow Condensed', sans-serif;
@@ -240,7 +235,6 @@
     margin-bottom: 24px;
   }
 
-  /* COACHES */
   .coaches { background: var(--dark); }
   .coach-card {
     background: var(--card);
@@ -252,6 +246,7 @@
   .coach-card:nth-child(1) { animation-delay: .1s; }
   .coach-card:nth-child(2) { animation-delay: .2s; }
   .coach-card:nth-child(3) { animation-delay: .3s; }
+  .coach-card:nth-child(4) { animation-delay: .4s; }
   .coach-icon {
     width: 56px; height: 56px;
     background: var(--orange);
@@ -281,7 +276,6 @@
     line-height: 1.6;
   }
 
-  /* PROGRAMS */
   .programs-grid { display: flex; flex-direction: column; gap: 12px; }
   .program-card {
     background: var(--card);
@@ -313,7 +307,6 @@
   .program-info p { font-size: 13px; color: #777; }
   .program-arrow { margin-left: auto; color: var(--orange); font-size: 20px; }
 
-  /* SCHEDULE */
   .schedule { background: var(--dark); }
   .schedule-tabs {
     display: flex;
@@ -362,7 +355,125 @@
   .schedule-info h4 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
   .schedule-info p { font-size: 12px; color: #666; }
 
-  /* JOIN */
+  .location-block {
+    background: var(--card);
+    border-left: 4px solid var(--orange);
+    padding: 18px 20px;
+    margin-top: 20px;
+    border-radius: 0 8px 8px 0;
+  }
+  .location-block h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--orange);
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+  .location-block p { font-size: 13px; color: #aaa; margin-bottom: 10px; }
+  .map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--orange);
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding: 8px 14px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: opacity .2s;
+  }
+  .map-link:active { opacity: 0.8; }
+
+  .supplements { background: var(--black); }
+  .supp-grid { display: flex; flex-direction: column; gap: 14px; }
+  .supp-card {
+    background: var(--card);
+    border: 1px solid var(--light-gray);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .supp-header {
+    background: linear-gradient(135deg, var(--orange), #c96010);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .supp-header .supp-icon { font-size: 22px; }
+  .supp-header h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--black);
+    line-height: 1.1;
+  }
+  .supp-header small {
+    font-size: 11px;
+    color: rgba(0,0,0,0.65);
+    font-weight: 600;
+    letter-spacing: 1px;
+    display: block;
+  }
+  .supp-body { padding: 16px 18px; }
+  .supp-body .supp-use {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+  .supp-body ul {
+    list-style: none;
+    padding: 0;
+  }
+  .supp-body ul li {
+    font-size: 13px;
+    color: #bbb;
+    padding: 3px 0;
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .supp-body ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+    font-weight: 700;
+  }
+  .supp-tag {
+    display: inline-block;
+    background: rgba(244,127,32,0.15);
+    color: var(--orange);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-top: 10px;
+  }
+  .cibeles-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(244,127,32,0.08);
+    border: 1px solid rgba(244,127,32,0.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+  }
+  .cibeles-badge span { font-size: 18px; }
+  .cibeles-badge p {
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.4;
+  }
+  .cibeles-badge strong { color: var(--orange); }
+
   .join-section {
     background: var(--orange);
     padding: 48px 24px;
@@ -394,7 +505,6 @@
     cursor: pointer;
   }
 
-  /* FOOTER */
   footer {
     background: #050505;
     padding: 32px 24px;
@@ -410,7 +520,6 @@
   .footer-logo span { color: var(--orange); }
   footer p { font-size: 12px; color: #444; }
 
-  /* MOBILE NAV OVERLAY */
   .mobile-nav {
     position: fixed;
     inset: 0;
@@ -447,14 +556,12 @@
 </head>
 <body>
 
-<!-- WIP BANNER -->
 <div class="wip-banner">
   <div class="wip-dot"></div>
   🚧 PAGINA EN CONSTRUCCIÓN — PRÓXIMAMENTE 🚧
   <div class="wip-dot"></div>
 </div>
 
-<!-- NAV -->
 <nav>
   <div class="logo">run<span>FIT</span><br><small style="font-size:12px;letter-spacing:4px;color:#666;font-family:'Barlow',sans-serif;font-weight:600;">TRAINING</small></div>
   <button class="menu-btn" onclick="document.querySelector('.mobile-nav').classList.add('open')">
@@ -462,17 +569,16 @@
   </button>
 </nav>
 
-<!-- MOBILE NAV -->
 <div class="mobile-nav">
   <button class="nav-close" onclick="document.querySelector('.mobile-nav').classList.remove('open')">✕</button>
   <a href="#inicio">Inicio</a>
   <a href="#entrenadores">Entrenadores</a>
   <a href="#programas">Programas</a>
   <a href="#horarios">Horarios</a>
+  <a href="#suplementos">Suplementos</a>
   <a href="#unirse">Unirse</a>
 </div>
 
-<!-- HERO -->
 <section class="hero" id="inicio">
   <div class="hero-bg"></div>
   <div class="hero-number">RF</div>
@@ -487,10 +593,9 @@
   </div>
 </section>
 
-<!-- STATS -->
 <div class="stats">
   <div class="stat-item">
-    <span class="stat-num">3</span>
+    <span class="stat-num">4</span>
     <span class="stat-label">COACHES</span>
   </div>
   <div class="stat-item">
@@ -503,34 +608,39 @@
   </div>
 </div>
 
-<!-- COACHES -->
 <section class="coaches" id="entrenadores">
   <p class="section-tag">NUESTRO EQUIPO</p>
   <h2 class="section-title">LOS<br>ENTRENADORES</h2>
 
   <div class="coach-card">
     <div class="coach-icon">🏆</div>
-    <div class="coach-role">RENDIMIENTO ATLÉTICO</div>
-    <div class="coach-name">Prof. [Nombre]</div>
-    <p class="coach-desc">Especializado en atletas de competencia. Planes de entrenamiento personalizados para mejorar tiempos, técnica de carrera y preparación para carreras.</p>
+    <div class="coach-role">RENDIMIENTO EN RUNNING</div>
+    <div class="coach-name">Prof. Daniel Sarmiento</div>
+    <p class="coach-desc">Especializado en corredores de competencia. Planes de entrenamiento personalizados para mejorar tiempos, técnica de carrera y preparación para carreras.</p>
   </div>
 
   <div class="coach-card">
     <div class="coach-icon">💪</div>
     <div class="coach-role">FORTALECIMIENTO & RECUPERACIÓN</div>
-    <div class="coach-name">Prof. [Nombre]</div>
+    <div class="coach-name">Prof. Washington Pérez</div>
     <p class="coach-desc">Trabaja en la fuerza muscular, prevención de lesiones y recuperación activa. El complemento ideal para que corras más y mejor.</p>
   </div>
 
   <div class="coach-card">
     <div class="coach-icon">⭐</div>
     <div class="coach-role">PROGRAMA INFANTIL</div>
-    <div class="coach-name">Prof. [Nombre]</div>
-    <p class="coach-desc">Programa especialmente diseñado para niños. Desarrollo físico, coordinación y amor por el deporte desde la infancia.</p>
+    <div class="coach-name">Prof. Pablo Sosa</div>
+    <p class="coach-desc">Programa especialmente diseñado para niños desde 6 años. Desarrollo físico, coordinación y amor por el running desde la infancia.</p>
+  </div>
+
+  <div class="coach-card">
+    <div class="coach-icon">🏅</div>
+    <div class="coach-role">ENTRENAMIENTO & PREPARACIÓN</div>
+    <div class="coach-name">Prof. Simón Teixeira</div>
+    <p class="coach-desc">Acompaña a los atletas en su desarrollo integral, combinando técnica, planificación y motivación para alcanzar el máximo potencial.</p>
   </div>
 </section>
 
-<!-- PROGRAMS -->
 <section id="programas">
   <p class="section-tag">LO QUE OFRECEMOS</p>
   <h2 class="section-title">PROGRAMAS</h2>
@@ -538,7 +648,7 @@
     <div class="program-card">
       <div class="program-icon-box">🏃</div>
       <div class="program-info">
-        <h3>Running Atlético</h3>
+        <h3>Running</h3>
         <p>Para corredores de competencia</p>
       </div>
       <span class="program-arrow">›</span>
@@ -562,64 +672,171 @@
     <div class="program-card">
       <div class="program-icon-box">🌟</div>
       <div class="program-info">
-        <h3>Niños & Jóvenes</h3>
-        <p>Desde 5 años. ¡A moverse!</p>
+        <h3>runFIT Kids</h3>
+        <p>Desde 6 años. ¡A moverse!</p>
       </div>
       <span class="program-arrow">›</span>
     </div>
   </div>
 </section>
 
-<!-- SCHEDULE -->
 <section class="schedule" id="horarios">
   <p class="section-tag">PLANIFICÁ TU SEMANA</p>
   <h2 class="section-title">HORARIOS</h2>
-  <div class="schedule-tabs">
-    <button class="tab active">Lunes</button>
-    <button class="tab">Martes</button>
-    <button class="tab">Miércoles</button>
-    <button class="tab">Jueves</button>
-    <button class="tab">Viernes</button>
-    <button class="tab">Sábado</button>
+
+  <div class="location-block">
+    <h4>📍 PISTA PRADO — LUNES Y MIÉRCOLES</h4>
+    <p>A partir de las 19:00 hs</p>
+    <a href="https://maps.app.goo.gl/LPGKkqWKzje76oCp6" target="_blank" class="map-link">
+      🗺️ VER EN GOOGLE MAPS
+    </a>
   </div>
-  <div class="schedule-item">
-    <div class="time-badge">06:00</div>
-    <div class="schedule-info">
-      <h4>Running Atlético</h4>
-      <p>Prof. [Nombre] · Al aire libre</p>
-    </div>
+
+  <div class="location-block" style="margin-top:14px;">
+    <h4>📍 PISTA PARQUE BATTLE — MARTES Y JUEVES</h4>
+    <p>A partir de las 19:15 hs</p>
+    <a href="https://maps.app.goo.gl/DArXoRKR8TwQcrjR6" target="_blank" class="map-link">
+      🗺️ VER EN GOOGLE MAPS
+    </a>
   </div>
-  <div class="schedule-item">
-    <div class="time-badge">08:00</div>
-    <div class="schedule-info">
-      <h4>Fortalecimiento</h4>
-      <p>Prof. [Nombre] · Gimnasio</p>
-    </div>
-  </div>
-  <div class="schedule-item">
-    <div class="time-badge">17:00</div>
-    <div class="schedule-info">
-      <h4>Niños & Jóvenes</h4>
-      <p>Prof. [Nombre] · Cancha principal</p>
-    </div>
-  </div>
-  <div class="schedule-item">
-    <div class="time-badge">19:00</div>
-    <div class="schedule-info">
-      <h4>Recuperación</h4>
-      <p>Prof. [Nombre] · Sala flex</p>
-    </div>
+
+  <div class="location-block" style="margin-top:14px;">
+    <h4>📍 CIUDAD DE LA COSTA — LUNES Y MIÉRCOLES</h4>
+    <p>A partir de las 19:00 hs</p>
+    <p style="color:#666;font-size:12px;margin-top:4px;margin-bottom:0;">📌 Ubicación próximamente</p>
   </div>
 </section>
 
-<!-- JOIN -->
+<section class="supplements" id="suplementos">
+  <p class="section-tag">NUTRICIÓN DEPORTIVA</p>
+  <h2 class="section-title">SUPLEMENTOS</h2>
+
+  <div class="cibeles-badge">
+    <span>🏅</span>
+    <p>Productos seleccionados de <strong>Cibeles Nutrition</strong> — pensados para el corredor exigente.</p>
+  </div>
+
+  <div class="supp-grid">
+
+    <div class="supp-card">
+      <div class="supp-header">
+        <div class="supp-icon">⚡</div>
+        <div>
+          <h3>Power Drink</h3>
+          <small>BEBIDA DEPORTIVA CON CARBOHIDRATOS + ELECTROLITOS</small>
+        </div>
+      </div>
+      <div class="supp-body">
+        <div class="supp-use">¿PARA QUÉ SIRVE?</div>
+        <ul>
+          <li>Hidratación y energía durante el ejercicio</li>
+          <li>Repone sales (sodio, potasio) que perdés con el sudor</li>
+          <li>Mantiene el rendimiento en entrenamientos largos</li>
+        </ul>
+        <span class="supp-tag">Ideal para fondos y tiradas largas</span>
+      </div>
+    </div>
+
+    <div class="supp-card">
+      <div class="supp-header">
+        <div class="supp-icon">🌾</div>
+        <div>
+          <h3>Maltodextrina</h3>
+          <small>CARBOHIDRATO COMPLEJO DE RÁPIDA ABSORCIÓN</small>
+        </div>
+      </div>
+      <div class="supp-body">
+        <div class="supp-use">¿PARA QUÉ SIRVE?</div>
+        <ul>
+          <li>Fuente de energía rápida</li>
+          <li>Carga glucógeno antes o después del entrenamiento</li>
+          <li>Evita quedarse sin energía</li>
+        </ul>
+        <div class="supp-use" style="margin-top:10px;">USO TÍPICO</div>
+        <ul>
+          <li>Antes (carga de energía)</li>
+          <li>Durante (en entrenamientos largos)</li>
+          <li>Después (recuperación)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="supp-card">
+      <div class="supp-header">
+        <div class="supp-icon">🔥</div>
+        <div>
+          <h3>Beta Alanina</h3>
+          <small>RESISTENCIA EN ALTA INTENSIDAD</small>
+        </div>
+      </div>
+      <div class="supp-body">
+        <div class="supp-use">¿PARA QUÉ SIRVE?</div>
+        <ul>
+          <li>Retrasa la fatiga muscular</li>
+          <li>Mejora la resistencia en alta intensidad</li>
+          <li>Permite sostener ritmos fuertes más tiempo</li>
+        </ul>
+        <div class="supp-use" style="margin-top:10px;">IDEAL PARA</div>
+        <ul>
+          <li>Series en pista</li>
+          <li>400 / 800 / 1500 metros</li>
+          <li>Cambios de ritmo y trabajos duros</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="supp-card">
+      <div class="supp-header">
+        <div class="supp-icon">💪</div>
+        <div>
+          <h3>Creatina</h3>
+          <small>FUERZA Y POTENCIA</small>
+        </div>
+      </div>
+      <div class="supp-body">
+        <div class="supp-use">¿PARA QUÉ SIRVE?</div>
+        <ul>
+          <li>Aumenta fuerza y potencia</li>
+          <li>Mejora la recuperación</li>
+          <li>Retrasa la fatiga</li>
+          <li>Permite entrenar más intenso</li>
+        </ul>
+        <span class="supp-tag">Clave en el trabajo de fuerza</span>
+      </div>
+    </div>
+
+    <div class="supp-card">
+      <div class="supp-header">
+        <div class="supp-icon">🍬</div>
+        <div>
+          <h3>Geles Energéticos</h3>
+          <small>CARBOHIDRATOS RÁPIDOS + ELECTROLITOS</small>
+        </div>
+      </div>
+      <div class="supp-body">
+        <div class="supp-use">¿PARA QUÉ SIRVEN?</div>
+        <ul>
+          <li>Energía inmediata durante la actividad</li>
+          <li>Mantienen el rendimiento en esfuerzos largos</li>
+          <li>Evitan el bajón de energía</li>
+        </ul>
+        <div class="supp-use" style="margin-top:10px;">USO TÍPICO</div>
+        <ul>
+          <li>1 gel cada 45 min en esfuerzos largos</li>
+          <li>Maltodextrina + otros azúcares de rápida absorción</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <div class="join-section" id="unirse">
   <h2>¿LISTO PARA CORRER?</h2>
   <p>Unite al club y empezá a entrenar con los mejores esta semana.</p>
   <button class="btn-dark">QUIERO UNIRME →</button>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-logo">run<span>FIT</span> TRAINING</div>
   <p>© 2025 runFIT Training · Todos los derechos reservados</p>
@@ -627,7 +844,6 @@
 </footer>
 
 <script>
-  // Tab switching
   document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
